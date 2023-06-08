@@ -63,8 +63,9 @@ cmd + alt - c : open -a "Google Chrome"
 cmd + ctrl + alt - c : open -na "Google Chrome"
 cmd + alt - f : open -a "Finder"
 cmd + alt - l : open -a "Slack"
-cmd + alt - w : open -a "Microsoft Teams"
+cmd + alt - w : open -a "Microsoft Teams.app"
 cmd + ctrl + alt - f : open -na "Finder"
+cmd + alt - n : open -a "Notes"
 
 ## fast focus desktop
 #cmd + alt - x : yabai -m space --focus last
