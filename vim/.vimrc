@@ -19,13 +19,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" Maps keys to move lines up and down in different modes
-nnoremap <down> :m .+1<CR>==
-nnoremap <up> :m .-2<CR>==
-inoremap <down> <Esc>: m .+1 <CR>==gi
-inoremap <up> <Esc>: m .-2 <CR>==gi
-vnoremap <down> : m '> +1 <CR>gv=gv
-vnoremap <up> : m '< -2 <CR>gv=gv
 
 " Use to find files
 nnoremap <C-p> :Files<CR>
@@ -156,4 +149,5 @@ Plug 'tpope/vim-fugitive'
 Plug 'github/copilot.vim'
 Plug 'mattn/emmet-vim'
 Plug 'preservim/nerdtree'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
