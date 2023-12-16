@@ -1,3 +1,4 @@
+set autowrite
 set scrolloff=8
 set number
 set relativenumber
@@ -14,6 +15,7 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
+
 " Split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -24,18 +26,38 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-p> :Files<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
-nnoremap <Leader>t :BTags <CR>
 
 " Maps < leader > / so we're ready to type the search keyword
- nnoremap <Leader> f :Rg <CR>
+nnoremap <Leader> f :Rg <CR>
  " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious <CR>
 nnoremap <silent> ]q :cnext <CR>
+
+" Go error commands
+map <C-s> :cnext<CR>
+map <C-a> :cprevious<CR>
+noremap <Leader>a :cclose<CR>
 
 " NERDTree commands
 nnoremap <Leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTreeToggle<CR>
 
+" Go cmd commands
+autocmd FileType go map <leader>r :GoRun<CR>
+autocmd FileType go map <leader>t :GoTest<CR>
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+ let l:file = expand('%')
+ if l:file =~# '^\f\+_test\.go$'
+   call go#test#Test(0, 1)
+ elseif l:file =~# '^\f\+\.go$'
+   call go#cmd#Build(0)
+ endif
+endfunction
+
+autocmd FileType go nmap <leader>x :<C-u>call <SID>build_go_files()<CR>
+
+ 
 " Start NERDTree when Vim starts with a directory argument.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
@@ -106,10 +128,27 @@ function! ExecuteMacroOverVisualRange()
       execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
+" Enable highlight in Go
+let g:go_highlight_types = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+
+"Configure metalinter for Go
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave = 1
+
+
+" Configure alternates for Go
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
 " Prettier Settings
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat_require_pragma = 0
-au BufWritePre *.css,*.svelte,*.pcss,*.html,*.ts,*.js,*.json PrettierAsync
+au BufWritePre *.css,*.svelte,*.pcss,*.html,*.ts,*.js,*.json,*.astro PrettierAsync
 
 if !exists('g:context_filetype#same_filetypes')
   let g:context_filetype#filetypes = {}
@@ -131,9 +170,13 @@ let g:ale_fixers={'javascript': ['prettier', 'eslint'],
                   \   'typescript': ['prettier', 'eslint'],
                   \   'python': ['autopep8'],
                   \}
+autocmd BufNewFile,BufRead *.astro set filetype=astro
+
+
 call plug#begin()
 Plug 'evanleck/vim-svelte'
 Plug 'pangloss/vim-javascript'
+Plug 'wuelnerdotexe/vim-astro'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', {'do': {-> fzf#install() } }
@@ -150,4 +193,7 @@ Plug 'github/copilot.vim'
 Plug 'mattn/emmet-vim'
 Plug 'preservim/nerdtree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'SirVer/ultisnips'
+Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
+
