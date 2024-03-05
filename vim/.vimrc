@@ -38,9 +38,6 @@ map <C-s> :cnext<CR>
 map <C-a> :cprevious<CR>
 noremap <Leader>a :cclose<CR>
 
-" NERDTree commands
-nnoremap <Leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Go cmd commands
 autocmd FileType go map <leader>r :GoRun<CR>
@@ -58,14 +55,6 @@ endfunction
 autocmd FileType go nmap <leader>x :<C-u>call <SID>build_go_files()<CR>
 
  
-" Start NERDTree when Vim starts with a directory argument.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-      \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 " Fold python
 let g:SimpylFold_docstring_preview = 1
 
@@ -103,22 +92,21 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> ff <Plug>(coc-format-selected)
 nmap <silent> rn <Plug>(coc-rename)
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 set updatetime=300
 set shortmess+=c " don't give | ins-completion-menu | messages.
 
 " Use K to show documentation in preview window
- nnoremap  K :call show_documentation()
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
- function! s:show_documentation()
-       if (index(['vim', 'help'], & filetype) >= 0)
-             execute 'h '.expand('')
-       else
-             call CocAction('doHover')
-       endif
- endfunction
+function! ShowDocumentation()
+    if CocAction('hasProvider', 'hover')
+          call CocActionAsync('doHover')
+    else
+          call feedkeys('K', 'in')
+    endif
+endfunction
 
 " Use to apply macros in the right lines
 xnoremap @: <C-u> call ExecuteMacroOverVisualRange() <CR>
@@ -148,7 +136,7 @@ autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 " Prettier Settings
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat_require_pragma = 0
-au BufWritePre *.css,*.svelte,*.pcss,*.html,*.ts,*.js,*.json,*.astro PrettierAsync
+au BufWritePre *.css,*.svelte,*.pcss,*.html,*.ts,*.js,*.jsx,*.tsx,*.json,*.astro PrettierAsync
 
 if !exists('g:context_filetype#same_filetypes')
   let g:context_filetype#filetypes = {}
@@ -191,9 +179,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'github/copilot.vim'
 Plug 'mattn/emmet-vim'
-Plug 'preservim/nerdtree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'SirVer/ultisnips'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'prisma/vim-prisma'
 call plug#end()
 
