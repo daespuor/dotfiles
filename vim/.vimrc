@@ -1,3 +1,5 @@
+syntax on
+set re=0
 set autowrite
 set scrolloff=8
 set number
@@ -160,7 +162,11 @@ let g:ale_fixers={'javascript': ['prettier', 'eslint'],
                   \}
 autocmd BufNewFile,BufRead *.astro set filetype=astro
 
-
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin()
 Plug 'evanleck/vim-svelte'
 Plug 'pangloss/vim-javascript'
@@ -183,5 +189,6 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'SirVer/ultisnips'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'prisma/vim-prisma'
+Plug 'rhysd/vim-healthcheck'
 call plug#end()
 
