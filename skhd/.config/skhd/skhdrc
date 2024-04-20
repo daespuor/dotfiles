@@ -52,7 +52,7 @@ alt - e : yabai -m window --toggle split
 
 ## Open vscode
 cmd + alt - s : open "x-apple.systempreferences:"
-cmd + alt - a : open -a "About This Mac"
+cmd + ctrl + alt - a : open -a "About This Mac"
 cmd + alt - v : open -a "Visual Studio Code"
 cmd + ctrl + alt - v : open -na "Visual Studio Code"
 cmd + alt - b : open -a "Brave Browser.app"
@@ -66,6 +66,8 @@ cmd + alt - l : open -a "Slack"
 cmd + alt - w : open -a "Microsoft Teams (work or school)"
 cmd + ctrl + alt - f : open -na "Finder"
 cmd + alt - n : open -a "Notes"
+cmd + alt - a : open -a "Android Studio"
+cmd + alt - x : open -a "Xcode"
 
 ## fast focus desktop
 #cmd + alt - x : yabai -m space --focus last
