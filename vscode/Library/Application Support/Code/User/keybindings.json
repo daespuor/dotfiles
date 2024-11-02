@@ -56,6 +56,11 @@
       "when": "!explorerViewletFocus"
     },
     {
+        "key": "shift+t",
+        "command": "workbench.action.quickSwitchWindow",
+        "when": "!explorerViewletFocus"
+    },
+    {
       "command": "deleteFile",
       "key": "d",
       "when": "filesExplorerFocus && !inputFocus"
