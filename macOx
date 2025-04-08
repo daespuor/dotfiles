@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 if [[ -z $STOW_FOLDERS ]]; then
-    STOW_FOLDERS="vscode,nvim,bin,yabai,tmux,skhd,karabiner,limelight,zsh"
+    STOW_FOLDERS="vscode,hammerspoon"
 fi
 
 if [[ -z $DOTFILES ]]; then

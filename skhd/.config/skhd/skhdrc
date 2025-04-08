@@ -68,7 +68,7 @@ cmd + ctrl + alt - f : open -na "Finder"
 cmd + alt - n : open -a "Notes"
 cmd + alt - a : open -a "Android Studio"
 cmd + alt - x : open -a "Xcode"
-cmd + alt - i : open -a "Insomnia"
+cmd + alt - i : open -a "IntelliJ IDEA"
 cmd + alt - z : open -a "zoom.us"
 
 
