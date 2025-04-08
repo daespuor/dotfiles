@@ -34,16 +34,28 @@ hs.hotkey.bind(hyper, "[", function()
   if win then win:moveOneScreenEast() end
 end)
 
+-- Set grid size (you can tweak this)
+hs.grid.setGrid('6x4')  -- 6 columns, 4 rows
+hs.grid.setMargins('5x5') -- space between windows
+hs.window.animationDuration = 0 -- instant movement
+
+-- Show the grid
+hs.hotkey.bind({"cmd", "alt"}, "G", function()
+  hs.grid.show()
+end)
+
 -- Toggle fullscreen (non-native and native fullscreen)
 hs.hotkey.bind(hyper, "F", function()
   local win = hs.window.focusedWindow()
   if win then win:setFullScreen(not win:isFullScreen()) end
 end)
 
+
 hs.hotkey.bind({"ctrl", "shift"}, "F", function()
   local win = hs.window.focusedWindow()
   if win then win:toggleFullScreen() end
 end)
+
 
 -- Application launchers
 local apps = {
