@@ -69,7 +69,7 @@ local apps = {
   N = "Notes",
   A = "Android Studio",
   X = "Xcode",
-  I = "Insomnia",
+  I = "IntelliJ Idea",
   Z = "zoom.us"
 }
 
