@@ -51,12 +51,12 @@
       "when": "explorerViewletFocus"
     },
     {
-      "key": "shift+n",
+      "key": "ctrl+shift+n",
       "command": "workbench.action.newWindow",
       "when": "!explorerViewletFocus"
     },
     {
-        "key": "shift+t",
+        "key": "ctrl+shift+t",
         "command": "workbench.action.quickSwitchWindow",
         "when": "!explorerViewletFocus"
     },
